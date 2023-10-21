@@ -13,7 +13,7 @@ export const CheckerBoard = ({ size, queenPositions = [] }) => {
         classNames.push("chessColumnNumber");
         checkerBoard.push(
           <div className={classNames.join(" ")}>
-            <span className="coin">{j - 1 < 0 ? "" : j - 1}</span>
+            <span className="coinNumbering">{j - 1 < 0 ? "" : j - 1}</span>
           </div>
         );
         continue;
@@ -24,7 +24,7 @@ export const CheckerBoard = ({ size, queenPositions = [] }) => {
         newRow = false;
         checkerBoard.push(
           <div className={classNames.join(" ")}>
-            <span className="coin">{i - 1 < 0 ? "" : i - 1}</span>
+            <span className="coinNumbering">{i - 1 < 0 ? "" : i - 1}</span>
           </div>
         );
         continue;
@@ -37,7 +37,7 @@ export const CheckerBoard = ({ size, queenPositions = [] }) => {
       checkerBoard.push(
         <div key={`check-${i}${j}`} className={classNames.join(" ")}>
           {_.find(queenPositions, pos) ? (
-            <span className="coin">&#x2655;</span>
+            <span className="coinPiece">&#x2655;</span>
           ) : (
             <span></span>
           )}
