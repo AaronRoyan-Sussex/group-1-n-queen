@@ -15,16 +15,18 @@
     clear:left;
 }
 
-.coin{
-    font-size: 7vh;
+.coinNumbering{
+    font-size: 5vh;
     font-weight: bold;
     color: #bbb;
 }
 
-.chessColumnBlack>.coin{
+.chessColumnBlack>.coinPiece{
+    font-size: 7vh;
     color: #bbb;
 }
 
-.chessColumnWhite>.coin{
+.chessColumnWhite>.coinPiece{
+    font-size: 7vh;
     color: #444;
 }

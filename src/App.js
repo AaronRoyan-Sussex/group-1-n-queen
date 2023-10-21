@@ -34,13 +34,13 @@ function App() {
                 type="number"
                 min="2"
                 max="16"
-                value="2"
-                onChange={(v) => {
-                  console.log(v.target.value);
-                  setCount(v.target.value);
+                onChange={(enteredNumber) => {
+                  console.log(enteredNumber.target.value);
+                  setCount(enteredNumber.target.value);
                 }}
               />
               <button
+                className="placeQueensBtn"
                 onClick={() => placeQueens(setQueenPos, count, setResult)}
               >
                 Place Queens

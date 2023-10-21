@@ -43,5 +43,5 @@ const isUnderAttack = (newPos, queenPosition) => {
   );
 };
 function sleep(s) {
-  return new Promise((resolve) => setTimeout(resolve, s * 1000));
+  return new Promise((resolve) => setTimeout(resolve, s * 1000)); //Change this number to INR/DECR the speed
 }
