@@ -1,0 +1,30 @@
+.chessColumnWhite{
+    background-color:#bbb;
+}
+.chessColumnBlack{
+    background-color: #000000;
+}
+.block{
+    width:10vh;
+    height:10vh;
+    clear: none;
+    float:left;
+    text-align: center;
+}
+.clearRow{
+    clear:left;
+}
+
+.coin{
+    font-size: 7vh;
+    font-weight: bold;
+    color: #bbb;
+}
+
+.chessColumnBlack>.coin{
+    color: #bbb;
+}
+
+.chessColumnWhite>.coin{
+    color: #444;
+}
