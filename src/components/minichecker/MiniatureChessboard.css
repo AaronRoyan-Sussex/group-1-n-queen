@@ -1,0 +1,16 @@
+.miniature-chessboards {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .mini-board {
+    border: 1px solid #aaa;
+    margin: 5px;
+  }
+  
+  .mini-board-row {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
