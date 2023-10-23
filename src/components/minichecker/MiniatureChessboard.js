@@ -1,6 +1,7 @@
 import React from "react";
+import "./MiniatureChessboard.css";
 
-function CheckerBoard({ size, queenPositions, onQueenPlacement }) {
+function MiniatureChessboard({ queenPositions, size }) {
   // Helper function to check if a square should be marked as invalid
   const isInvalidSquare = (row, col) => {
     for (const queenPos of queenPositions) {
@@ -21,22 +22,17 @@ function CheckerBoard({ size, queenPositions, onQueenPlacement }) {
     const isInvalid = isInvalidSquare(row, col);
     const squareColor = (row + col) % 2 === 0 ? "white" : "black";
     const squareStyle = {
-      backgroundColor: isQueen ? "green" : isInvalid ? "red" : squareColor,
-      width: "40px",
-      height: "40px",
+      backgroundColor: isQueen ? "green" : isInvalid ? squareColor : squareColor,
+      width: "20px",
+      height: "20px",
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
     };
 
     return (
-      <div
-        key={`${row}-${col}`}
-        className="square"
-        style={squareStyle}
-        onClick={() => onQueenPlacement(row, col)}
-      >
-        {isQueen && <span dangerouslySetInnerHTML={{ __html: "&#x265B;" }} />}
+      <div key={`${row}-${col}`} className="square" style={squareStyle}>
+        {isQueen && <span dangerouslySetInnerHTML={{ __html: "&#x2655;" }} />}
       </div>
     );
   };
@@ -48,13 +44,13 @@ function CheckerBoard({ size, queenPositions, onQueenPlacement }) {
       rowSquares.push(renderSquare(row, col));
     }
     board.push(
-      <div key={row} className="board-row">
+      <div key={row} className="mini-board-row">
         {rowSquares}
       </div>
     );
   }
 
-  return <div className="board">{board}</div>;
+  return <div className="mini-board">{board}</div>;
 }
+export default MiniatureChessboard;
 
-export { CheckerBoard };
