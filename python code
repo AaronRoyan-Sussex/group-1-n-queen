@@ -1,0 +1,82 @@
+#pyhton code
+import pygame
+import sys
+
+pygame.init()
+
+SIZE = 8
+WIDTH, HEIGHT = 400, 400
+SQUARE_SIZE = WIDTH // SIZE
+WHITE, BLACK, RED, TRANSPARENT_RED = (255, 255, 255), (0, 0, 0), (255, 0, 0), (255, 0, 0, 128)
+QUEEN_IMAGE = pygame.transform.scale(pygame.image.load('8731497.jpg'), (SQUARE_SIZE, SQUARE_SIZE))
+
+def draw_board(win, board):
+    for row in range(SIZE):
+        for col in range(SIZE):
+            color = WHITE if (row + col) % 2 == 0 else BLACK
+            pygame.draw.rect(win, color, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+            if board[row][col] == 1:
+                win.blit(QUEEN_IMAGE, (col * SQUARE_SIZE, row * SQUARE_SIZE))
+
+    for row in range(SIZE):
+        for col in range(SIZE):
+            if not is_safe(board, row, col) or board[row][col] == 1:
+                s = pygame.Surface((SQUARE_SIZE, SQUARE_SIZE), pygame.SRCALPHA)
+                s.fill(TRANSPARENT_RED)
+                win.blit(s, (col * SQUARE_SIZE, row * SQUARE_SIZE))
+
+def is_safe(board, row, col):
+    if board[row][col] == 1:
+        return True
+    for i in range(SIZE):
+        if board[row][i] == 1 or board[i][col] == 1:
+            return False
+
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+
+    for i, j in zip(range(row, SIZE, 1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+
+    for i, j in zip(range(row, -1, -1), range(col, SIZE, 1)):
+        if board[i][j] == 1:
+            return False
+
+    for i, j in zip(range(row, SIZE, 1), range(col, SIZE, 1)):
+        if board[i][j] == 1:
+            return False
+
+    return True
+
+def main():
+    win = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("8 Queens Problem")
+
+    board = [[0] * SIZE for _ in range(SIZE)]
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                col, row = x // SQUARE_SIZE, y // SQUARE_SIZE
+                if board[row][col] == 0:
+                    if is_safe(board, row, col):
+                        board[row][col] = 1
+                    else:
+                        print("Not safe to place queen at {},{}".format(row, col))
+                else:
+                    board[row][col] = 0
+
+        draw_board(win, board)
+        pygame.display.flip()
+
+    pygame.quit()
+    sys.exit()
+
+if __name__ == "__main__":
+    main()
+
