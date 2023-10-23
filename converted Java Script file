@@ -1,0 +1,90 @@
+#Java Script 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <title>8 Queens Problem</title>
+</head>
+<body>
+  <script>
+    const SIZE = 8;
+    const WIDTH = 400;
+    const HEIGHT = 400;
+    const SQUARE_SIZE = WIDTH / SIZE;
+    const WHITE = [255, 255, 255];
+    const BLACK = [0, 0, 0];
+    const RED = [255, 0, 0, 128]; // RGBA for transparent red
+    let queenImage;
+    let board = new Array(SIZE).fill().map(() => new Array(SIZE).fill(0));
+
+    function preload() {
+      queenImage = loadImage('8731497.jpg');
+    }
+
+    function setup() {
+      createCanvas(WIDTH, HEIGHT);
+      queenImage.resize(SQUARE_SIZE, SQUARE_SIZE);
+    }
+
+    function draw() {
+      drawBoard();
+    }
+
+    function drawBoard() {
+      for (let row = 0; row < SIZE; row++) {
+        for (let col = 0; col < SIZE; col++) {
+          let color = (row + col) % 2 === 0 ? WHITE : BLACK;
+          fill(color);
+          noStroke();
+          rect(col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+
+          if (board[row][col] === 1) {
+            image(queenImage, col * SQUARE_SIZE, row * SQUARE_SIZE);
+          }
+
+          if (!isSafe(row, col) || board[row][col] === 1) {
+            fill(RED);
+            rect(col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+          }
+        }
+      }
+    }
+
+    function isSafe(row, col) {
+      if (board[row][col] === 1) return true;
+
+      for (let i = 0; i < SIZE; i++) {
+        if (board[row][i] === 1 || board[i][col] === 1) return false;
+      }
+
+      for (let i = 0; i < SIZE; i++) {
+        if (
+          (row - i >= 0 && col - i >= 0 && board[row - i][col - i] === 1) || // Diagonal up-left
+          (row + i < SIZE && col - i >= 0 && board[row + i][col - i] === 1) || // Diagonal up-right
+          (row - i >= 0 && col + i < SIZE && board[row - i][col + i] === 1) || // Diagonal down-left
+          (row + i < SIZE && col + i < SIZE && board[row + i][col + i] === 1)   // Diagonal down-right
+        ) return false;
+      }
+
+      return true;
+    }
+
+    function mousePressed() {
+      let col = floor(mouseX / SQUARE_SIZE);
+      let row = floor(mouseY / SQUARE_SIZE);
+      if (board[row][col] === 0) {
+        if (isSafe(row, col)) {
+          board[row][col] = 1;
+        } else {
+          console.log("Not safe to place queen at", row, col);
+        }
+      } else {
+        board[row][col] = 0;
+      }
+    }
+  </script>
+</body>
+</html>
