@@ -10,6 +10,7 @@ function App() {
   const [result, setResult] = useState("");
   const [queenPos, setQueenPos] = useState([]);
   const [solutions, setSolutions] = useState([]);
+  const [isSolved, setIsSolved] = useState(false);
 
   const handleQueenPlacement = (row, col) => {
     // Clone the current queen positions
@@ -32,6 +33,7 @@ function App() {
     setQueenPos([]);
     setSolutions([]);
     setResult("");
+    setIsSolved(false); // re-Set the puzzle as un-solved
   };
   
 
@@ -43,6 +45,7 @@ function App() {
       newSolutions.push([...solution.queenPos]);
       setSolutions(newSolutions);
       setResult("Solved");
+      setIsSolved(true); // Set the puzzle as solved
     } else {
       setResult("Cannot find safe positions for all the queens!");
     }
@@ -55,7 +58,7 @@ function App() {
           <div className="col-md-8 chessBoardArea">
             <div className="row">
               <div className="col-md-12">
-                <CheckerBoard size={count} queenPositions={queenPos} onQueenPlacement={handleQueenPlacement} />
+                <CheckerBoard size={count} queenPositions={queenPos} onQueenPlacement={handleQueenPlacement} isSolved={isSolved}/>
               </div>
             </div>
             <div className="row">

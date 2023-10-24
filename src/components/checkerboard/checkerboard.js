@@ -1,16 +1,19 @@
 import React from "react";
 
-function CheckerBoard({ size, queenPositions, onQueenPlacement }) {
+function CheckerBoard({ size, queenPositions, onQueenPlacement, isSolved }) {
+  // const [isSolved, setIsSolved] = useState(false);
   // Helper function to check if a square should be marked as invalid
   const isInvalidSquare = (row, col) => {
-    for (const queenPos of queenPositions) {
-      if (
-        queenPos.row === row ||
-        queenPos.col === col ||
-        queenPos.row - queenPos.col === row - col ||
-        queenPos.row + queenPos.col === row + col
-      ) {
-        return true; // Invalid square
+    if(!isSolved){
+      for (const queenPos of queenPositions) {
+        if (
+          queenPos.row === row ||
+          queenPos.col === col ||
+          queenPos.row - queenPos.col === row - col ||
+          queenPos.row + queenPos.col === row + col
+        ) {
+          return true; // Invalid square
+        }
       }
     }
     return false; // Valid square
@@ -21,7 +24,7 @@ function CheckerBoard({ size, queenPositions, onQueenPlacement }) {
     const isInvalid = isInvalidSquare(row, col);
     const squareColor = (row + col) % 2 === 0 ? "white" : "black";
     const squareStyle = {
-      backgroundColor: isQueen ? "green" : isInvalid ? "red" : squareColor,
+      backgroundColor: isQueen ? "green" : isInvalid && !isSolved ? "#bf2230" : squareColor,
       width: "40px",
       height: "40px",
       display: "inline-flex",
