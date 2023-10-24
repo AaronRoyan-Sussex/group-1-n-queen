@@ -3,8 +3,8 @@
   }*/
   
   .homepageArea{
-    /*border:1px #aaa;*/
     min-height:90vh;
+    overflow:hidden;
   }
 
   .txtTitle {
@@ -19,6 +19,12 @@
     margin-left: auto;
     margin-right: auto; 
     padding-top: 20px;
+    margin-top: 30px;
+  }
+
+  .backgdImg {
+    backdrop-filter: blur(10px);
+    overflow:hidden;
   }
 
   .txtStart {
@@ -32,26 +38,8 @@
     position: relative;
     left: 0px; ; top:200px;
   }
-
-  .txtPresentedBy {
-    color: #fff;
-    position: absolute;
-    bottom: 15px;
-    right: 24px;
-    padding-bottom: 10px;
-    padding-right: 10px;
-    font-size: larger;
-
-  }
-
-  .center {
-    margin: auto;
-    width: 50%;
-    border: 3px solid green;
-    padding: 10px;
-  }
     
-  .clsQueen {
+  /*.clsQueen {
     position: absolute;
     bottom: 15px;
     right: 24px;
@@ -76,6 +64,34 @@
     80%  {right:0px; top:150px;}
     85%  {right:0px; top:120px;}
     100%  {right:0px; top:100px;}
+  }*/
+
+  .clsQueen {
+    position: absolute;
+    right: 24px;
+    padding-bottom: 10px;
+    padding-right: 42%;
+    top: 80%;
+	  margin:20px;
+    -webkit-transition: margin 2s ;
+    -moz-transition: margin 2s ;
+    -o-transition: margin 2s ;
+    overflow:hidden;
+    
+  }
+
+  .clsQueen:hover {
+    cursor:pointer;
+    margin-top: -300px; 
+  }
+
+  .startMsg {
+    color: #b48608; 
+    font-family: 'Times new roman', serif; 
+    font-size: 20px; 
+    text-align: center;
+    padding-top: 21px;
+    padding: 20px;
   }
     
     

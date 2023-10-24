@@ -18,19 +18,20 @@ function Homepage() {
   };
 
   return (
-
-    <div style={{ backgroundImage: `url(${background})` }} width="500" height="500">
-      <div className="container-fluid homepageArea">
-        <img src={groupNumber} className="imgGroupNumber" width="250" height="130"/>
-          <div class="clsQueen">
-              <img src={template} onClick={handleClick} alt="Queen" width="200" height="300"/>
-          </div>
+    <div>
+      <div className="backgdImg" style={{ backgroundImage: `url(${background})`}} width="500" height="500">
+        <div className="container-fluid homepageArea">
+          <img src={groupNumber} className="imgGroupNumber" width="150" height="70"/>
+            <div class="clsQueen">
+                <img src={template} onClick={handleClick} alt="Queen" width="200" height="300"/>
+            </div>
+        </div>
       </div>
+      <div className="startMsg"> Please click on the Queen to Start </div>
     </div>
   );
 }
 
-//<div className="txtPresentedBy"> By Group Number One </div>
 //<div className="txtTitle"> Welcome to N-Queen Problem Solution </div>
 //<div className="txtStart"> Please click on the Queen to Start </div>
 
