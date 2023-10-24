@@ -1,50 +1,106 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { CheckerBoard } from "./components/checkerboard/checkerboard";
+import MiniatureChessboard from "./components/minichecker/MiniatureChessboard";
 import { nqueen } from "./utilities/nqueen";
 import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(2);
+  const [count, setCount] = useState(8); // Default board size
   const [result, setResult] = useState("");
   const [queenPos, setQueenPos] = useState([]);
+  const [solutions, setSolutions] = useState([]);
+  const [isSolved, setIsSolved] = useState(false);
+
+  const handleQueenPlacement = (row, col) => {
+    // Clone the current queen positions
+    const newQueenPos = [...queenPos];
+
+    // Check if there's already a queen at this position, remove it
+    const existingIndex = newQueenPos.findIndex((pos) => pos.row === row && pos.col === col);
+    if (existingIndex !== -1) {
+      newQueenPos.splice(existingIndex, 1);
+    } else {
+      // Place a queen at the selected position
+      newQueenPos.push({ row, col });
+    }
+
+    setQueenPos(newQueenPos);
+  };
+
+  const resetBoard = () => {
+    // Clear queen positions and solutions
+    setQueenPos([]);
+    setSolutions([]);
+    setResult("");
+    setIsSolved(false); // Set the puzzle as unsolved
+  };
+
+  const findQueens = async () => {
+    setResult("");
+    const solution = await nqueen(count, queenPos, 0, setQueenPos);
+    if (solution.solved) {
+      const newSolutions = [...solutions];
+      newSolutions.push([...solution.queenPos]);
+      setSolutions(newSolutions);
+      setResult("Solved");
+      setIsSolved(true); // Set the puzzle as solved
+    } else {
+      setResult("Cannot find safe positions for all the queens!");
+    }
+  };
+
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-8 chessBoardArea" style={{ padding: "3vh" }}>
-          <div className="row">
-            <div className="col-md-12">
-              <CheckerBoard size={count} queenPositions={queenPos} />
+    <div className="App">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-8 chessBoardArea">
+            <div className="row">
+              <div className="mx-auto pt-4">
+                <CheckerBoard size={count} queenPositions={queenPos} onQueenPlacement={handleQueenPlacement} isSolved={isSolved} />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12 font-weight-bold result-box">
+                {result}
+                <ul className="miniature-chessboards">
+                  {solutions.map((solution, index) => (
+                    <li key={index}>
+                      <MiniatureChessboard queenPositions={solution} size={count} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-          <div className="row">
-            <div
-              className="col-md-12"
-              style={{ color: "#eee", padding: "4vh" }}
-            >
-              {result}
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4 chessBoardArea" style={{ padding: "3vh" }}>
-          <div className="row">
-            <div className="col-md-12">
-              <label style={{ color: "white" }}>Chess Board Size:</label>
-              <input
-                type="number"
-                min="2"
-                max="16"
-                onChange={(enteredNumber) => {
-                  console.log(enteredNumber.target.value);
-                  setCount(enteredNumber.target.value);
-                }}
-              />
-              <button
-                className="placeQueensBtn"
-                onClick={() => placeQueens(setQueenPos, count, setResult)}
-              >
-                Place Queens
-              </button>
+          <div className="col-md-4 pt-4 chessBoardArea">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <div className="input-group-text">👑</div>
+                  </div>
+                  <input
+                    className="form-control"
+                    type="number"
+                    min="2"
+                    placeholder="Enter Board Size"
+                    max="10"
+                    value={count}
+                    onChange={(enteredNumber) => {
+                      setCount(parseInt(enteredNumber.target.value, 10));
+                    }}
+                  />
+                </div>
+                <div className="buttons">
+                  <button className="placeQueensBtn" onClick={findQueens}>
+                    Find Queens
+                  </button>
+                  <button className="placeQueensBtnReset" onClick={resetBoard}>
+                    Reset Board
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -52,14 +108,5 @@ function App() {
     </div>
   );
 }
-const placeQueens = async (setQueenPos, count, setResult) => {
-  setResult("");
-  const queenPos = [];
-  const solution = await nqueen(count, queenPos, 0, setQueenPos);
-  if (solution.solved) {
-    setResult("Solved! All queens are placed in non attacking positions!");
-  } else {
-    setResult("Cannot find safe positions for all the queens!");
-  }
-};
+
 export default App;

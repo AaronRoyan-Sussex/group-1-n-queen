@@ -1,47 +1,43 @@
-export const nqueen = async (n, queenPos = [], col, setQueenPos) => {
-  console.log(queenPos.length, parseInt(n));
-  if (queenPos.length == parseInt(n)) {
-    console.log(queenPos);
-    return { solved: true, queenPos: queenPos };
+async function nqueen(size, placedQueens, col, setQueenPos) {
+  let i = 0;
+  console.log('heyyy',placedQueens, col, size);
+  if (col >= size) {
+    return { solved: true, queenPos: placedQueens };
   }
-  for (let i = 0; i < n; i++) {
-    const newPos = { x: col, y: i };
-    const safeCheck = isSafe(queenPos, newPos);
-    if (safeCheck) {
-      queenPos.push(newPos);
-      setQueenPos([...queenPos]);
-      await sleep(1);
-      const res = await nqueen(n, queenPos, col + 1, setQueenPos);
-      if (res.solved) {
-        return res;
+  // Math.ceil(Math.random() * size)
+  for (i = 0; i < size; i++) {
+    const newPos = { row: i, col };
+
+    if (isSafe(placedQueens, newPos)) {
+      placedQueens.push(newPos);
+      setQueenPos([...placedQueens]);
+
+      const result = await nqueen(size, placedQueens, col + 1, setQueenPos);
+
+      if (result.solved) {
+        return result;
       }
 
-      queenPos.pop();
-      await sleep(0.25);
-      setQueenPos([...queenPos]);
+      placedQueens.pop();
+      setQueenPos([...placedQueens]);
     }
   }
-  return { solved: false, queenPos: queenPos };
-};
-const isSafe = (queenPos = [], newPos = {}) => {
-  for (let i = 0; i < queenPos.length; i++) {
-    const pos = queenPos[i];
-    if (isUnderAttack(newPos, pos)) {
+
+  return { solved: false, queenPos: placedQueens };
+}
+
+function isSafe(queenPositions, newPos) {
+  for (const queenPos of queenPositions) {
+    if (
+      queenPos.row === newPos.row ||
+      queenPos.col === newPos.col ||
+      queenPos.row - queenPos.col === newPos.row - newPos.col ||
+      queenPos.row + queenPos.col === newPos.row + newPos.col
+    ) {
       return false;
     }
   }
   return true;
-};
-const isUnderAttack = (newPos, queenPosition) => {
-  const d1 = newPos.x - newPos.y;
-  const d2 = newPos.x + newPos.y;
-  return (
-    queenPosition.x == newPos.x ||
-    queenPosition.y == newPos.y ||
-    queenPosition.x + queenPosition.y == d2 ||
-    queenPosition.x - queenPosition.y == d1
-  );
-};
-function sleep(s) {
-  return new Promise((resolve) => setTimeout(resolve, s * 1000)); //Change this number to INR/DECR the speed
 }
+
+export { nqueen };
