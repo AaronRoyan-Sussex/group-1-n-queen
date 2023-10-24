@@ -8,9 +8,16 @@ Its about finding how many different ways queens can be placed on a chessboard w
 
 ## Authors
 
-- @as2733@sussex.ac.uk
-- @
-- @
+k.Malik@sussex.ac.uk 
+d.Ritthison@sussex.ac.uk
+msu22@sussex.ac.uk
+sa2252@sussex.ac.uk
+sd656@sussex.ac.uk
+ar810@sussex.ac.uk
+as2733@sussex.ac.uk
+eo337@sussex.ac.uk
+
+
 
 
 ## Deployment
