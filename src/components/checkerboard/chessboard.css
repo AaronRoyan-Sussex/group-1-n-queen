@@ -30,3 +30,28 @@
     font-size: 7vh;
     color: #444;
 }
+
+.miniature-chessboards {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main-board {
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+.main-board-row {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.row-labels{
+    display: flex;
+    flex-direction: column;
+}
+.column-label{
+    padding-right: 20px;
+}

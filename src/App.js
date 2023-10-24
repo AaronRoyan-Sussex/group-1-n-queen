@@ -33,9 +33,8 @@ function App() {
     setQueenPos([]);
     setSolutions([]);
     setResult("");
-    setIsSolved(false); // re-Set the puzzle as un-solved
+    setIsSolved(false); // Set the puzzle as unsolved
   };
-  
 
   const findQueens = async () => {
     setResult("");
@@ -57,24 +56,24 @@ function App() {
         <div className="row">
           <div className="col-md-8 chessBoardArea">
             <div className="row">
-              <div className="col-md-12">
-                <CheckerBoard size={count} queenPositions={queenPos} onQueenPlacement={handleQueenPlacement} isSolved={isSolved}/>
+              <div className="mx-auto pt-4">
+                <CheckerBoard size={count} queenPositions={queenPos} onQueenPlacement={handleQueenPlacement} isSolved={isSolved} />
               </div>
             </div>
             <div className="row">
-              <div className="col-md-12 result-box">
+              <div className="col-md-12 font-weight-bold result-box">
                 {result}
-                  <ul className="miniature-chessboards">
-                    {solutions.map((solution, index) => (
-                      <li key={index}>
-                        <MiniatureChessboard queenPositions={solution} size={count} />
-                      </li>
-                    ))}
-                  </ul>
+                <ul className="miniature-chessboards">
+                  {solutions.map((solution, index) => (
+                    <li key={index}>
+                      <MiniatureChessboard queenPositions={solution} size={count} />
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
-          <div className="col-md-4 chessBoardArea">
+          <div className="col-md-4 pt-4 chessBoardArea">
             <div className="row">
               <div className="col-md-12">
                 <div className="input-group">
@@ -93,12 +92,12 @@ function App() {
                     }}
                   />
                 </div>
-                <div className="buttons">                  
+                <div className="buttons">
                   <button className="placeQueensBtn" onClick={findQueens}>
-                      Find Queens
-                  </button> 
-                  <button className="placeQueensBtn" onClick={resetBoard}>
-                      Reset Board
+                    Find Queens
+                  </button>
+                  <button className="placeQueensBtnReset" onClick={resetBoard}>
+                    Reset Board
                   </button>
                 </div>
               </div>

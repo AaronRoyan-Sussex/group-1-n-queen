@@ -1,10 +1,11 @@
 import React from "react";
+import "./chessboard.css";
 
 function CheckerBoard({ size, queenPositions, onQueenPlacement, isSolved }) {
-  // const [isSolved, setIsSolved] = useState(false);
-  // Helper function to check if a square should be marked as invalid
+  const columns = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".slice(0, size);
+
   const isInvalidSquare = (row, col) => {
-    if(!isSolved){
+    if (!isSolved) {
       for (const queenPos of queenPositions) {
         if (
           queenPos.row === row ||
@@ -30,6 +31,7 @@ function CheckerBoard({ size, queenPositions, onQueenPlacement, isSolved }) {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
+      borderColor: "white"
     };
 
     return (
@@ -43,21 +45,35 @@ function CheckerBoard({ size, queenPositions, onQueenPlacement, isSolved }) {
       </div>
     );
   };
-
+  
   const board = [];
-  for (let row = 0; row < size; row++) {
+  const rowLabels = Array.from({ length: size }, (_, index) => index + 1);
+
+  for (let roww = 0; roww < size; roww++) {
     const rowSquares = [];
     for (let col = 0; col < size; col++) {
-      rowSquares.push(renderSquare(row, col));
+      rowSquares.push(renderSquare(roww, col));
     }
     board.push(
-      <div key={row} className="board-row">
+      <div key={roww} className="main-board-row">
+        <div className="column-label">{columns[roww]}</div> {/* Display column alphabet */}
         {rowSquares}
       </div>
     );
   }
 
-  return <div className="board">{board}</div>;
+  // Add row numbers
+
+  return (
+    <div className="main-board"> 
+      <div className="row-labels d-flex flex-row ">
+        {rowLabels.map((label) => (
+          <div className="p-3" key={`row-label-${label}`}>{label}</div>
+        ))}
+      </div>
+      {board}
+    </div>
+  );
 }
 
 export { CheckerBoard };

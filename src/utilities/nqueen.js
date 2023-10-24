@@ -1,9 +1,11 @@
 async function nqueen(size, placedQueens, col, setQueenPos) {
+  let i = 0;
+  console.log('heyyy',placedQueens, col, size);
   if (col >= size) {
     return { solved: true, queenPos: placedQueens };
   }
-
-  for (let i = 0; i < size; i++) {
+  // Math.ceil(Math.random() * size)
+  for (i = 0; i < size; i++) {
     const newPos = { row: i, col };
 
     if (isSafe(placedQueens, newPos)) {
