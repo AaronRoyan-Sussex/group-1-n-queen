@@ -8,9 +8,14 @@ Its about finding how many different ways queens can be placed on a chessboard w
 
 ## Authors
 
-- @as2733@sussex.ac.uk
-- @
-- @
+- Ashutosh Sharma  
+- Aaron Royan
+- Sultana Attar
+- Ololade Malik
+- Dusita Rothhinson
+- Sude Umac
+- Shubham Dalvi
+- Emmanuel Oteng
 
 
 ## Deployment
